@@ -37,11 +37,83 @@
     }
   }
 
+  /*
+   * Faint grid behind the hero. Two flat layers: an even base, plus a few soft
+   * patches at a higher alpha so the lines never read uniformly.
+   */
+  .hero-grid {
+    --hero-grid-cell: 48px;
+    --hero-grid-line: rgba(215, 226, 234, 0.055);
+    --hero-grid-patch: rgba(215, 226, 234, 0.075);
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: clip;
+    animation: hero-grid-in 1.4s ease-out both;
+  }
+
+  @media (min-width: 768px) {
+    .hero-grid {
+      --hero-grid-cell: 72px;
+    }
+  }
+
+  .hero-grid__base,
+  .hero-grid__patch {
+    position: absolute;
+    inset: 0;
+    background-size: var(--hero-grid-cell) var(--hero-grid-cell);
+  }
+
+  .hero-grid__base {
+    background-image:
+      linear-gradient(to right, var(--hero-grid-line) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--hero-grid-line) 1px, transparent 1px);
+    -webkit-mask-image: radial-gradient(ellipse 120% 105% at 50% 45%, #000 45%, transparent 100%);
+    mask-image: radial-gradient(ellipse 120% 105% at 50% 45%, #000 45%, transparent 100%);
+  }
+
+  /*
+   * Layered on top of the base so these regions read brighter. Mask layers
+   * add together by default, which is all this needs -- no compositing modes.
+   */
+  .hero-grid__patch {
+    background-image:
+      linear-gradient(to right, var(--hero-grid-patch) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--hero-grid-patch) 1px, transparent 1px);
+    -webkit-mask-image:
+      radial-gradient(circle 22rem at 18% 26%, #000, transparent 70%),
+      radial-gradient(circle 28rem at 74% 70%, #000, transparent 72%),
+      radial-gradient(circle 17rem at 94% 14%, #000, transparent 68%),
+      radial-gradient(circle 20rem at 40% 92%, #000, transparent 70%);
+    mask-image:
+      radial-gradient(circle 22rem at 18% 26%, #000, transparent 70%),
+      radial-gradient(circle 28rem at 74% 70%, #000, transparent 72%),
+      radial-gradient(circle 17rem at 94% 14%, #000, transparent 68%),
+      radial-gradient(circle 20rem at 40% 92%, #000, transparent 70%);
+  }
+
   .hero-heading {
     background: linear-gradient(180deg, #646973 0%, #bbccd7 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
     color: transparent;
+  }
+}
+
+@keyframes hero-grid-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-grid {
+    animation: none;
   }
 }

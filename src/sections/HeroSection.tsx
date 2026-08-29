@@ -3,6 +3,7 @@ import SocialLinks from '../components/SocialLinks';
 import CursorCrosshair from '../components/CursorCrosshair';
 import CursorText from '../components/CursorText';
 import FadeIn from '../components/FadeIn';
+import HeroGrid from '../components/HeroGrid';
 import LetterSwap from '../components/LetterSwap';
 import Magnet from '../components/Magnet';
 import { useFitToWidth } from '../components/useFitToWidth';
@@ -30,6 +31,8 @@ export default function HeroSection() {
       // scrollbar. `clip` rather than `hidden` avoids making this a scroll container.
       style={{ background: '#0C0C0C', overflow: 'clip' }}
     >
+      <HeroGrid />
+
       <FadeIn
         delay={0}
         y={-20}
