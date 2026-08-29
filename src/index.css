@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html,
+  body,
+  #root {
+    background: #0c0c0c;
+  }
+
+  body {
+    font-family: 'Kanit', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+@layer components {
+  /*
+   * The orange crosshair marker stands in for the pointer. Gated on a fine
+   * hover-capable pointer so touch devices are untouched, and applied to
+   * descendants too because Tailwind's preflight sets cursor on buttons.
+   */
+  @media (hover: hover) and (pointer: fine) {
+    .cursor-none-area,
+    .cursor-none-area * {
+      cursor: none;
+    }
+  }
+
+  .hero-heading {
+    background: linear-gradient(180deg, #646973 0%, #bbccd7 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+}
